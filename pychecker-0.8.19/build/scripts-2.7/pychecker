@@ -1,0 +1,3 @@
+#! /bin/sh
+
+/usr/bin/python /Library/Python/2.7/site-packages/pychecker/checker.py "$@"
