@@ -13,6 +13,6 @@ class splitPython:
         f = open(self.fileName, 'r')
         for line in f:
             split_line = line.split(',')
-            self.split_data.append(split_line[1])
-            self.split_data2.append(split_line[2])
+            self.split_data.append(split_line[0])
+            self.split_data2.append(split_line[1])
         f.close()
