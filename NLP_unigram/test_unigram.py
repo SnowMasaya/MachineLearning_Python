@@ -4,6 +4,7 @@ import unittest
 from file_read import readPython
 from unigram_train import unigramPython
 from unigram_write import writePython
+from model_read import readModelPython
 import commands
 
 class TestSeaquenceFunction(unittest.TestCase):
@@ -16,6 +17,10 @@ class TestSeaquenceFunction(unittest.TestCase):
         fileName = 'unigram_model'
         writemodel = writePython(fileName, unigram.word_map)
         writemodel.file_write()
+        model = readModelPython(fileName)
+        model.file_read_model()
+        for k,v in model.word_map.items():
+            print "%s %f" % (k,v)
         
         #answer = commands.getoutput('sort -t, -k2,2 -r KEN_ALL_nkf_w.CSV')
         #join_sort_compare_data and answer are not match because sort commands is also the sorting other keys
