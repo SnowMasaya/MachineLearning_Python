@@ -8,8 +8,6 @@ class unigramPython:
         self.word = word
         self.word_map = {}
         self.total_word = 0
-        self.lambdaP = 1
-        self.total_word_number = 100000
 
     def unigram_train(self):
         self.total_word = len(self.word)
@@ -22,6 +20,5 @@ class unigramPython:
                    self.word_map[word_unit] = 1
         for k,v in self.word_map.items():
             probability = 1.0 * v / self.total_word
-            N_probability = (self.lambdaP * probability ) + ((1 - self.lambdaP) / self.total_word_number)
-            self.word_map.update({k:N_probability})
+            self.word_map.update({k:probability})
 
