@@ -4,13 +4,12 @@ import sys
 
 class unigramPython:
     
-    def __init__(self, word):
+    def __init__(self, word, total_word):
         self.word = word
         self.word_map = {}
-        self.total_word = 0
+        self.total_word = total_word
 
     def unigram_train(self):
-        self.total_word = len(self.word)
         for word_line in self.word:
             for word_unit in word_line:
                 if self.word_map.has_key(word_unit):
