@@ -16,7 +16,6 @@ class readModelPython:
             probability = float(word[len(word) - 1])
             word.pop()
             sword = str(" ".join(word))
-            print sword
             self.word_map.update({sword:probability})
         f.close()
         
