@@ -13,8 +13,11 @@ class readModelPython:
         f = open(self.fileName, 'r')
         for line in f:
             word = line.split(" ")
-            probability = float(word[1])
-            self.word_map.update({word[0]:probability})
+            probability = float(word[len(word) - 1])
+            word.pop()
+            sword = str(" ".join(word))
+            print sword
+            self.word_map.update({sword:probability})
         f.close()
         
 

@@ -9,9 +9,10 @@ class evaluateModelPython:
         self.fileName = fileName
         self.word_probability = word_probability
         self.total_word_number = 0
-        self.unknown_word_number = 0
-        self.lambdaP = 0.95
-        self.lambdaUnk = 1 - self.lambdaP
+        self.lambdaP1 = 0.95
+        self.lambdaP2 = 0.95
+        self.lambdaUnk1 = 1 - self.lambdaP1
+        self.lambdaUnk2 = 1 - self.lambdaP2
         self.Volume = 1000000
         self.H = 0
 
@@ -22,14 +23,19 @@ class evaluateModelPython:
             rline = line.replace("\n", "")
             words = rline.split(" ")
             words.append("</s>")
-            for word in words:
+            words.insert(0, "<s>")
+            count = 1
+            while len(words) > count:
                 self.total_word_number = self.total_word_number + 1
-                P = 1.0 * self.lambdaUnk / self.Volume
-                if self.word_probability.has_key(word):
-                   P = P + self.lambdaP * self.word_probability[word]
-                else:
-                   self.unknown_word_number = self.unknown_word_number + 1
-                self.H = self.H -1 * log(P,2)
+                P1 = 1.0 * self.lambdaUnk1 / self.Volume
+                if self.word_probability.has_key(words[count]):
+                   P1 = P1 + self.lambdaP1 * self.word_probability[words[count]]
+                P2 = P1 * self.lambdaUnk2 / self.Volume
+                bi_word = words[count - 1] + " " + words[count]
+                if self.word_probability.has_key(words[count]):
+                   P2 = P2 + self.lambdaP2 * self.word_probability[bi_word]
+                self.H = self.H -1 * log(P2,2)
+                count = count + 1
         f.close()
         
 
