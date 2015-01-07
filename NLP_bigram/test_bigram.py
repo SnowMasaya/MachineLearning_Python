@@ -3,7 +3,7 @@
 import unittest
 from file_read import readPython
 from bigram_train import bigramPython
-#from unigram_write import writePython
+from bigram_write import writePython
 #from model_read import readModelPython
 #from evaluate_model import evaluateModelPython
 import commands
@@ -17,8 +17,8 @@ class TestSeaquenceFunction(unittest.TestCase):
         bigram.bigram_train()
         print {k:v for k,v in bigram.word_map.items()}
         fileName = 'bigram_model'
-        #writemodel = writePython(fileName, unigram.word_map)
-        #writemodel.file_write()
+        writemodel = writePython(fileName, bigram.word_map)
+        writemodel.file_write()
         #model = readModelPython(fileName)
         #model.file_read_model()
         #print {k:v for k,v in unigram.word_map.items()}

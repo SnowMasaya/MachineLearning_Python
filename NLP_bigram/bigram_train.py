@@ -30,12 +30,9 @@ class bigramPython:
                 self.context_count = context_count.bigram_map()
 
                 count = count + 1
-        print {k:v for k,v in self.word_map.items()}
-        print {k:v for k,v in self.context_count.items()}
         for ngram,count in self.word_map.items():
             words = ngram.split(" ")
             words.pop()
             context = "".join(words)
-            print ngram + " " + context + " " + str(self.word_map[ngram]) + " " + str(self.context_count[context])
             probability = 1.0 * self.word_map[ngram] / self.context_count[context]
             self.word_map.update({ngram:probability})
