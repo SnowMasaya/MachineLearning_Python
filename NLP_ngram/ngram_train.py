@@ -66,12 +66,10 @@ class ngramPython:
         print {k:v for k,v in self.word_map.items()}
         for ngram,count in self.word_map.items():
             words = ngram.split(" ")
-            start_number = len(words) - (len(words) - 1)
-            if len(words) > 1:
-               [words.pop() for x in range(len(words), start_number, -1)]
+            words.pop()
+            if len(words) < 2:
+               context = "".join(words)
             else:
-               words.pop()
-            context = "".join(words)
-            if context != "</s>":
-               probability = 1.0 * self.word_map[ngram] / self.context_count[context]
-               self.word_map.update({ngram:probability})
+               context = " ".join(words)
+            probability = 1.0 * self.word_map[ngram] / self.context_count[context]
+            self.word_map.update({ngram:probability})
