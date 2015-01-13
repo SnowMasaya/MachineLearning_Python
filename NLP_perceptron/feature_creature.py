@@ -8,8 +8,8 @@ class createFeaturePython:
         self.feature = x
         self.data = data
         self.phi = {}
+
     def creature_feature(self):
-        print {k:v for k,v in self.data.items()}
         words = self.feature.split(" ")
         for word in words:
             feature  = "UNI:" + word
