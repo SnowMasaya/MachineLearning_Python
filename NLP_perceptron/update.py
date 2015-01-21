@@ -9,7 +9,5 @@ class updatePython:
 
     def update(self):
         for name,value in self.phi.iteritems():
-            print str(self.weight[name])
-            print str(value)
-            print str(self.y)
             self.weight[name] = float(self.weight[name]) + float(value) * int(self.y)
+        return self.weight

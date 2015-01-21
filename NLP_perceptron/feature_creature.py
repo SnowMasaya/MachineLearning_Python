@@ -4,15 +4,12 @@ import sys
 
 class createFeaturePython:
     
-    def __init__(self, x, data, flabel):
-        self.flabel = flabel
-        self.feature = x
-        self.data = data
+    def __init__(self):
         self.phi = {}
 
-    def creature_feature(self):
-        words = self.feature.split(" ")
+    def creature_feature(self, feature, data, flabel):
+        words = feature.split(" ")
         for word in words:
-            feature  = self.flabel + word
-            self.phi.update({feature:self.data[word]})
+            feature  = flabel + word
+            self.phi.update({feature:data[word]})
         return self.phi

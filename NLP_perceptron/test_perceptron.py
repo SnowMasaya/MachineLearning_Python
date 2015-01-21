@@ -6,8 +6,7 @@ from unigram_train import unigramPython
 from unigram_write import writePython
 from file_read_feature import readFeaturePython
 from online_learning import onlineLearningPython
-from model_read import readModelPython
-from evaluate_model import evaluateModelPython
+from predict_one import predictOnePython
 import commands
 
 class TestSeaquenceFunction(unittest.TestCase):
@@ -27,18 +26,15 @@ class TestSeaquenceFunction(unittest.TestCase):
         print {k:v for k,v in cfeature.feature.items()}
         online = onlineLearningPython(cfeature.feature, unigram.word_map, "UNI:")
         online.online_learning()
+        print {k:v for k,v in online.phi.items()}
+
+        predict = predictOnePython("03-train.txt", online.weight, online.phi, "UNI:")
+        predict.predict()
         
         #model = readModelPython(fileName)
         #model.file_read_model()
         #print {k:v for k,v in unigram.word_map.items()}
         #fileName = '01-test-input.txt'
-        #test = evaluateModelPython(fileName, model.word_map)
-        #test.evaluate_model()
-        #print "entropy = "  + str(test.H / test.total_word_number )
-        #print "coverage = "  + str( 1.0 * (test.total_word_number - test.unknown_word_number) / test.total_word_number) 
-        
-        #answer = commands.getoutput('sort -t, -k2,2 -r KEN_ALL_nkf_w.CSV')
-        #join_sort_compare_data and answer are not match because sort commands is also the sorting other keys
         #self.assertEqual(join_sort_compare_data, answer)
 
 if __name__ == '__main__':
