@@ -24,7 +24,8 @@ class TestSeaquenceFunction(unittest.TestCase):
         cfeature = readFeaturePython(fileName)
         cfeature.feature_Read()
 
-        online = onlineLearningPython(cfeature.feature, unigram.word_map)
+        print {k:v for k,v in cfeature.feature.items()}
+        online = onlineLearningPython(cfeature.feature, unigram.word_map, "UNI:")
         online.online_learning()
         
         #model = readModelPython(fileName)
