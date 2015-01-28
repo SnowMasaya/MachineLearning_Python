@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+
+import sys
+from math import log
+
+class viterbiForwardPython:
+    
+    def __init__(self, unigram_model_name, fileName):
+        self.unigram_model_name = unigram_model_name
+        self.unigram = {}
+        self.fileName = fileName
+        self.best_edge = []
+        self.best_score = []
+
+    def viterbi_forward(self):
+        model = open(self.unigram_model_name, 'r')
+        words = []
+        my_score = 0
+        for line in model:
+            rline = line.replace("\n","")
+            words = rline.split(" ")
+            self.unigram.update({words[0]:words[1]})
+        print {k:v for k,v in self.unigram.items()}
+        f = open(self.fileName, 'r')
+        for line in f:
+            rline = line.replace("\n","")
+            words = rline.decode("utf-8")
+            #[self.best_edge[index] for index in range(len(words))]
+            self.best_edge.insert(0,None)
+            self.best_score.insert(0,0)
+            for word_end in range(len(words)):
+                self.best_score.insert(word_end,10**10)
+                for word_begin in range(len(words) - 1):
+                    word = words[word_begin:word_end]
+                    if self.unigram.has_key(word)  or len(word) == 1:
+                       prob = self.unigram[word]
+                       my_score = self.best_score[word_begin] - log(float(prob))
+                       if my_score < self.best_score[word_end]:
+                          self.best_score[word_end] = my_score
+                          self.best_edge[word_end] = (word_begin, word_end)
