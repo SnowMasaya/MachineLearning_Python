@@ -26,15 +26,35 @@ class viterbiForwardPython:
             rline = line.replace("\n","")
             words = rline.decode("utf-8")
             #[self.best_edge[index] for index in range(len(words))]
+            self.best_edge = []
+            self.best_score = []
             self.best_edge.insert(0,None)
             self.best_score.insert(0,0)
-            for word_end in range(len(words)):
+            for word_end in range(1, len(words)):
                 self.best_score.insert(word_end,10**10)
-                for word_begin in range(len(words) - 1):
+                for word_begin in range(0, len(words) - 1):
                     word = words[word_begin:word_end]
                     if self.unigram.has_key(word)  or len(word) == 1:
+                       print word
                        prob = self.unigram[word]
                        my_score = self.best_score[word_begin] - log(float(prob))
+                       print str(log(float(prob)))
+                       print str(prob) + " " + str(my_score)
+                       print str(self.best_score[word_end])
                        if my_score < self.best_score[word_end]:
-                          self.best_score[word_end] = my_score
-                          self.best_edge[word_end] = (word_begin, word_end)
+                          print str(self.best_score[word_end])
+                          self.best_score.insert(word_end, my_score)
+                          print str(word_end) + " " + str(word_begin)
+                          self.best_edge.insert(word_end, (word_begin, word_end))
+            words = []
+            print self.best_edge
+            next_edge = self.best_edge[len(self.best_edge) - 1]
+            print next_edge 
+            while next_edge != None:
+                word = line[next_edge[0]:next_edge[1]]
+                print word
+                uwords = word.decode("utf-8")
+                words.append(uwords)
+                next_edge = self.best_edge[ next_edge[0] ]
+            rword = words.reverse()
+            print words
